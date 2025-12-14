@@ -20,6 +20,33 @@ O framework core utilizado neste projeto está disponível em:
 
 ---
 
+## 🏗 Arquitetura da Solução de Automação
+
+![Arquitetura da Automação](docs/architecture-diagram.png)
+
+Este projeto representa a **camada de testes**, responsável apenas por:
+- Orquestrar cenários
+- Definir comportamento de testes
+- Consumir o Automation Core via pip
+
+### Visão Geral
+
+A arquitetura segue princípios de:
+- Separação de responsabilidades
+- Reutilização
+- Manutenibilidade
+- Escalabilidade
+
+### Fluxo de execução
+
+1. Os testes são escritos em Robot Framework
+2. As keywords Python são expostas pela BaseLibrary
+3. A BaseLibrary delega chamadas ao Automation Core
+4. O Core executa a lógica técnica (HTTP, validações, contratos)
+5. O resultado é retornado de forma padronizada ao teste
+
+---
+
 ## 🧱 Arquitetura
 
 ```text
