@@ -1,0 +1,4 @@
+http:
+  base_url: https://serverest.dev/#/
+  timeout: 30
+  verify_ssl: true

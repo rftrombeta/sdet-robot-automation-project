@@ -1,6 +1,0 @@
-robotframework
-robotframework-faker
-setuptools
-robotframework-pabot
-robotframework-requests
-requests

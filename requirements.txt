@@ -1,0 +1,2 @@
+robotframework
+git+https://github.com/rftrombeta/sdet-python-automation-core.git@main
