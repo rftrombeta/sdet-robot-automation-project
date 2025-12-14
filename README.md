@@ -1,89 +1,131 @@
-# name-projeto-automacao
+# 🤖 SDET Robot Automation Project
 
-## **Introdução**
-Robot Framework é um framework para automação de testes com uma sintaxe fácil, que faz a utilização de palavras-chaves (keywords) que são legíveis para humanos. As bibliotecas são implementadas utilizando Python.
+Projeto de automação de testes utilizando **Robot Framework**, consumindo um **framework core versionado via pip**, desenvolvido para demonstrar práticas reais de **SDET / QA Automation Engineering**.
 
-### **Estrutura**
+---
 
-O projeto possui um diretório principal chamado **/api** e dentro desse diretório podemos trabalhar com outros dois diretórios, sendo eles: ```/resources``` e ```/tests```.
+## 🎯 Objetivo
 
-#### **resources**
-Nessa estrutura vamos implementar as keywords (palavras chaves) do projeto, as quais poderão ser separadas em outras duas estruturas com o intuito de facilitar a visualização e manutenção, sendo elas:
+Este projeto tem como objetivo demonstrar:
 
-* **_/actions_**: keywords responsáveis por realizar ações.
-* **/assertions**: keywords responsáveis por validar os resultados 
-que foram obtidos através de alguma ação.
+* Uso de **Robot Framework desacoplado** da implementação técnica
+* Consumo de um **framework core reutilizável** via `pip`
+* Arquitetura limpa e escalável para automação de APIs
+* Boas práticas de versionamento e integração entre repositórios
 
-Além das pastas citadas acima, ainda podemos ter nesse diretório o arquivo **base.resource**, responsável por unificar a importação dos respectivos arquivos utilizados no projeto.
-* Exemplo: [base.resource](/api/resources/base.resource)
+O framework core utilizado neste projeto está disponível em:
 
-#### **tests**
-Nessa estrutura teremos os arquivos de testes propriamente ditos, os quais farão a invocação das respectivas keywords.
-Abaixo dessa estrutura podemos padronizar os respectivos padrões para nomenclaturas de pastas e arquivos de testes conforme necessidade.
+👉 **sdet-python-automation-core**
+[https://github.com/rftrombeta/sdet-python-automation-core](https://github.com/rftrombeta/sdet-python-automation-core)
 
-Também podemos ter nesse diretório o arquivo **requirements.txt**, responsável por manter as dependências do projeto e suas respectivas versões caso necessário. As dependências também podem ser controladas por uma library externa caso haja necessidade.
-* Exemplo: [requirements.txt](/api/requirements.txt)
+---
 
-> Para saber mais sobre a utilização de lib externa, consulte [aqui](https://github.com/rftrombeta/lib-python-robot-framework/blob/main/README.md).
+## 🧱 Arquitetura
 
-***
-### **Arquivos**
-#### **Keywords**
-Keywords são utilizadas para facilitar o entendimento da aplicação tornando-a legivel para toda e qualquer pessoa, não importando se o usuário tem conhecimento em linguagens de programação ou não.
+```text
+sdet-robot-automation-project
+│
+├── tests/
+│   └── api/
+│       └── example_api.robot
+│
+├── pyproject.toml
+├── README.md
+└── .venv/
+```
 
-Dessa forma teremos Keywords pré programadas que poderão ser utilizadas em varios testes, sendo necessário apenas montar o caso de teste seguindo a ordem de execução dos processos.
+### 🔗 Relação entre os projetos
 
-Uma keyword deve conter a seguinte estrutura:
-* Bloco Settings
-    * Documentation: Documentação geral do arquivo.
-    * Resource: Importação dos recursos necessários.
-* Bloco Keywords
-    * Cada keyword pode conter a sua própria ```[Documentation]``` e receber os seus próprios ```[Arguments]``` para serem utilizados como parâmetro.
-    * Uma keyword pode ou não ter um ```RETURN```.
->Exemplo: [action.resource](/api/resources/actions/action.resource)
+```text
+Robot Framework Tests
+        │
+        ▼
+SDET Python Automation Core (via pip)
+        │
+        ▼
+HttpClient • Context • Libraries • Keywords
+```
 
-#### **Assertions**
-As assertions também são keywords e tem o mesmo funcionamento descrito acima, porém, elas podem ser utilizadas para segregar os arquivos em validadores de ações.
+O projeto Robot **não contém lógica técnica de HTTP**, apenas consome keywords expostas pelo core.
 
->Exemplo: [assertion.resource](/api/resources/assertions/assertion.resource)
+---
 
-#### **Tests**
-São representados pelos arquivos com extensão **.robot**, devem conter a seguinte estrutura:
-* Bloco Settings
-    * Language: ptbr: Opcional, mas se inserido, podemos traduzir os parâmetros abaixo para português. Pode ser utilizado para representação do Gherkin (Dado, Quando, Então).
-    * Name: Opcional, mas se inserido, o nome indicado aqui irá aparecer no relatório como suite de teste.
-    * Documentation: Documentação geral do arquivo.
-    * Resource: Importação dos recursos necessários.
-* Bloco Test Cases
-    * Cada Test Case pode conter a sua própria ```[Documentation]``` e suas próprias ```[Tags]```.
-    * Uma keyword pode ou não ter um ```RETURN```.
->Exemplo: [test_one_example.robot](/api/tests/test_one_example.robot)
-***
-### **Execução**
+## 📦 Dependências
 
-**Importante**\
-Ao trabalhar com Python, é interessante utilizar ambientes virtuais, pois assim, podemos trabalhar com vários projetos sem que as dependências tenham impacto uns nos outros por conta de versões. Dito isso, estando na pasta raiz do projeto, siga os passos abaixo para criar e atiar o ambiente virtual Python:
-1. Para criar o ambiente virtual: ```python -m venv .venv```
-2. Para ativar o ambiente virtual: ```.venv\Scripts\activate```
-    1. Note que o seu terminal ficará com a marcação **(.venv)**, indicando que o ambiente virtual python está ativo.
-3. Acesse a pasta do projeto **(cd api)** para instalar as dependências através do arquivo **requirements.txt**
-    1. Para instalar as dependências: ```pip install -r requirements.txt```
-4. Para conferir as dependências instaladas no ambiente virtual: ```pip freeze```
+Gerenciadas via **pyproject.toml**:
 
-Os testes executados localmente são chamados através de linha de comando digitados no terminal, conforme exemplo:
+```toml
+[project]
+dependencies = [
+  "robotframework>=6.0",
+  "sdet-python-automation-core @ git+https://github.com/rftrombeta/sdet-python-automation-core.git@v0.1.0"
+]
+```
 
-```robot -d ./logs tests```
+---
 
-O parametro **-d** é responsável por especificar o diretório onde os resultados e relatórios de seu teste serão armazenados, ou seja, a pasta /logs.
+## 🚀 Instalação
 
-o parametro **tests** é a pasta principal onde nossos cenários de testes estão alocados. Executando somente esse comando todos os arquivos de testes inclusos na pasta serão executados. Caso a execução seja necessária em apenas um arquivo, é importante passar o nome do arquivo na linha de comando.
+### 1️⃣ Criar ambiente virtual
 
-```robot -d ./logs tests\serverest.dev\```
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+```
 
-Também é possível executar vários testes de uma única vez através do pabot, veja abaixo:
-```pabot --testlevelsplit --processes 5 -d .\logs\ tests\serverest.dev```
+### 2️⃣ Instalar dependências
 
-***
-## **Documentação**
-Exemplos de utilização podem ser encontradas no site oficial do [Robot Framework](https://robotframework.org/) 
+```bash
+pip install -e .
+```
 
+---
+
+## ▶️ Execução dos testes
+
+```bash
+robot tests/api/example_api.robot
+```
+
+### ✅ Exemplo de teste
+
+```robot
+*** Settings ***
+Library    sdet_python_automation_core.libraries.base_library.BaseLibrary
+
+*** Test Cases ***
+GET Example Using Core Framework
+    Create HTTP Client    https://jsonplaceholder.typicode.com
+    GET    /posts/1
+    Status Should Be    200
+```
+
+---
+
+## 🧠 Conceitos aplicados
+
+* SDET Architecture
+* Core framework reutilizável
+* Versionamento semântico
+* Integração via pip (GitHub)
+* Separação entre testes e implementação
+
+---
+
+## 👤 Autor
+
+**Rodrigo Trombeta**
+QA SDET • Automação • IA
+
+* LinkedIn: [https://www.linkedin.com/in/rodrigo-trombeta-21b89252](https://www.linkedin.com/in/rodrigo-trombeta-21b89252)
+* GitHub: [https://github.com/rftrombeta](https://github.com/rftrombeta)
+
+---
+
+## 📌 Próximos passos
+
+* Expansão de testes API
+* Integração com múltiplos ambientes
+* Autenticação (Bearer / OAuth)
+* Integração com CI/CD
