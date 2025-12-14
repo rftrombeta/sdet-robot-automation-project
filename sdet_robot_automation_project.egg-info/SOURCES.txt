@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+sdet_robot_automation_project.egg-info/PKG-INFO
+sdet_robot_automation_project.egg-info/SOURCES.txt
+sdet_robot_automation_project.egg-info/dependency_links.txt
+sdet_robot_automation_project.egg-info/requires.txt
+sdet_robot_automation_project.egg-info/top_level.txt

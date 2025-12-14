@@ -1,0 +1,10 @@
+[project]
+name = "sdet-robot-automation-project"
+version = "0.1.0"
+description = "Robot Framework project consuming SDET automation core"
+requires-python = ">=3.9"
+
+dependencies = [
+  "robotframework>=6.0",
+  "sdet-python-automation-core @ git+https://github.com/rftrombeta/sdet-python-automation-core.git@main"
+]
