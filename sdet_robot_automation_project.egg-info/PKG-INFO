@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: sdet-robot-automation-project
-Version: 0.1.0
-Summary: Robot Framework project consuming SDET automation core
-Requires-Python: >=3.9
-Requires-Dist: robotframework>=6.0
-Requires-Dist: sdet-python-automation-core@ git+https://github.com/rftrombeta/sdet-python-automation-core.git@main

@@ -12,7 +12,8 @@
 #Automation project specific files
 api/logs
 .pabotsuitenames
-interactive_console_output.xml
+*.xml
+*.html
 
 # Python
 __pycache__/
