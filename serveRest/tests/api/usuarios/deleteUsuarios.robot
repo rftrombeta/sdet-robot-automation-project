@@ -4,8 +4,8 @@ Documentation    Exclusão de Usuários - ServeRest
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário DEL-01: Excluir usuário
-    [Tags]    001    positivo    del_user
+Cenário DELETE-USUARIOS-01: Excluir usuário
+    [Tags]    001    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -40,8 +40,8 @@ Cenário DEL-01: Excluir usuário
     Dictionary Should Contain Key    ${body}             message
     Should Be Equal As Strings       ${body}[message]    Usuário não encontrado
 
-Cenário del-02: Não excluir usuário inexistente
-    [Tags]    002    negativo
+Cenário DELETE-USUARIOS-02: Não excluir usuário inexistente
+    [Tags]    002    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -54,8 +54,8 @@ Cenário del-02: Não excluir usuário inexistente
     Dictionary Should Contain Key    ${body}             message
     Should Be Equal As Strings       ${body}[message]    Nenhum registro excluído
 
-Cenário DEL-03: Não excluir usuário com carrinho cadastrado
-    [Tags]    003    negativo    del_user
+Cenário DELETE-USUARIOS-03: Não excluir usuário com carrinho cadastrado
+    [Tags]    003    usuarios    del_user
     Skip    Necessário fazer a inclusão do carrinho para finalizar esse cenário
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}

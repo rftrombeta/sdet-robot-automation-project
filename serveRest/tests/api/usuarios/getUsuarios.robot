@@ -4,8 +4,8 @@ Documentation    Consulta de Usuários - ServeRest
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário GET-01: Consultar todos os usuarios cadastrados
-    [Tags]    001    positivo    get    usuarios
+Cenário GET-USUARIOS-01: Consultar todos os usuarios cadastrados
+    [Tags]    001    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -29,8 +29,8 @@ Cenário GET-01: Consultar todos os usuarios cadastrados
     Dictionary Should Contain Key    ${primeiro}    administrador
     Dictionary Should Contain Key    ${primeiro}    _id
 
-Cenário GET-02: Buscar usuário por ID
-    [Tags]    002    positivo    get_user
+Cenário GET-USUARIOS-02: Buscar usuário por ID
+    [Tags]    002    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -56,8 +56,8 @@ Cenário GET-02: Buscar usuário por ID
     
     Log To Console    \nBusca realizada com sucesso para o ID: ${ID_GERADO}
 
-Cenário GET-03: Não buscar usuário com ID maior que o permitido
-    [Tags]    003    negativo
+Cenário GET-USUARIOS-03: Não buscar usuário com ID maior que o permitido
+    [Tags]    003    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -70,8 +70,8 @@ Cenário GET-03: Não buscar usuário com ID maior que o permitido
     Dictionary Should Contain Key    ${body}        id
     Should Be Equal As Strings       ${body}[id]    id deve ter exatamente 16 caracteres alfanuméricos
 
-Cenário GET-04: Não buscar usuário com ID menor que o permitido
-    [Tags]    004    negativo
+Cenário GET-USUARIOS-04: Não buscar usuário com ID menor que o permitido
+    [Tags]    004    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -84,8 +84,8 @@ Cenário GET-04: Não buscar usuário com ID menor que o permitido
     Dictionary Should Contain Key    ${body}     id
     Should Be Equal As Strings    ${body}[id]    id deve ter exatamente 16 caracteres alfanuméricos
 
-Cenário GET-05: Não buscar usuário com ID inexistente
-    [Tags]    005    negativo
+Cenário GET-USUARIOS-05: Não buscar usuário com ID inexistente
+    [Tags]    005    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 

@@ -4,8 +4,8 @@ Documentation    Alteração de Usuários - ServeRest
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário PUT-01: Altera o cadastro de usuário
-    [Tags]    001    positivo    put_user
+Cenário PUT-USUARIOS-01: Altera o cadastro de usuário
+    [Tags]    001    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 

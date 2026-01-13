@@ -5,8 +5,8 @@ Documentation
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário LGN-01: Login com sucesso
-    [Tags]    001    positivo
+Cenário POST-LOGIN-01: Login com sucesso
+    [Tags]    001    login
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -31,8 +31,8 @@ Cenário LGN-01: Login com sucesso
     Dictionary Should Contain Key    ${response_login.json()}    authorization
     Log To Console    \nToken capturado: ${response_login.json()}[authorization]
 
-Cenário LGN-02: Login com senha incorreta
-    [Tags]    002    negativo
+Cenário POST-LOGIN-02: Login com senha incorreta
+    [Tags]    002    login
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -55,8 +55,8 @@ Cenário LGN-02: Login com senha incorreta
     
     Should Be Equal As Strings    ${response_login.json()}[message]    Email e/ou senha inválidos
 
-Cenário LGN-03: Login com email incorreto
-    [Tags]    003    negativo
+Cenário POST-LOGIN-03: Login com email incorreto
+    [Tags]    003    login
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     

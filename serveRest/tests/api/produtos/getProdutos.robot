@@ -4,8 +4,8 @@ Documentation    Consulta de Produtos - ServeRest
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário GET-01: Consultar todos os produtos cadastrados
-    [Tags]    001    positivo    get    produtos
+Cenário GET-PRODUTO-01: Consultar todos os produtos cadastrados
+    [Tags]    001    produtos
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -29,8 +29,8 @@ Cenário GET-01: Consultar todos os produtos cadastrados
     Dictionary Should Contain Key    ${primeiro}    quantidade
     Dictionary Should Contain Key    ${primeiro}    _id
 
-Cenário GET-02: Buscar produto por ID
-    [Tags]    002    positivo    get
+Cenário GET-PRODUTO-02: Buscar produto por ID
+    [Tags]    002    produtos
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -50,8 +50,8 @@ Cenário GET-02: Buscar produto por ID
     
     Status Should Be    200    ${response}
 
-Cenário GET-03: Não buscar produto com ID maior que o permitido
-    [Tags]    003    negativo
+Cenário GET-PRODUTO-03: Não buscar produto com ID maior que o permitido
+    [Tags]    003    produtos
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
@@ -64,13 +64,13 @@ Cenário GET-03: Não buscar produto com ID maior que o permitido
     Dictionary Should Contain Key    ${body}        id
     Should Be Equal As Strings       ${body}[id]    id deve ter exatamente 16 caracteres alfanuméricos
 
-Cenário GET-04: Não buscar produto com ID menor que o permitido
-    [Tags]    004    negativo
+Cenário GET-PRODUTO-04: Não buscar produto com ID menor que o permitido
+    [Tags]    004    produtos
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
     ${response}    GET On Session     serverest
-    ...    /usuarios/64b7f8f8f8f8134
+    ...    /produtos/64b7f8f8f8f8134
     ...    expected_status=400
 
     Status Should Be    400    ${response}
@@ -78,16 +78,16 @@ Cenário GET-04: Não buscar produto com ID menor que o permitido
     Dictionary Should Contain Key    ${body}     id
     Should Be Equal As Strings    ${body}[id]    id deve ter exatamente 16 caracteres alfanuméricos
 
-Cenário GET-05: Não buscar usuário com ID inexistente
-    [Tags]    005    negativo
+Cenário GET-PRODUTO-05: Não buscar produto com ID inexistente
+    [Tags]    005    produtos
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
 
     ${response}    GET On Session     serverest
-    ...    /usuarios/64b7f8f8f8f81345
+    ...    /produtos/64b7f8f8f8f81345
     ...    expected_status=400
 
     Status Should Be    400    ${response}
     ${body}    Set Variable    ${response.json()}
     Dictionary Should Contain Key    ${body}             message
-    Should Be Equal As Strings       ${body}[message]    Usuário não encontrado
+    Should Be Equal As Strings       ${body}[message]    Produto não encontrado

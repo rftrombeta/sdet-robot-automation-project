@@ -4,8 +4,8 @@ Documentation    Validação do Cadastro de Usuários - ServeRest
 Resource    ../../../resources/base.resource
 
 *** Test Cases ***
-Cenário USR-01: Cadastrar novo usuário com sucesso
-    [Tags]    001    positivo    usuarios
+Cenário POST-USUARIOS-01: Cadastrar novo usuário com sucesso
+    [Tags]    001    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
@@ -23,8 +23,8 @@ Cenário USR-01: Cadastrar novo usuário com sucesso
     ${USER_ID}    Set Variable    ${response.json()}[_id]
     Log To Console    \nUsuário criado com ID: ${USER_ID}
 
-Cenário USR-02: Não cadastrar usuário com email existente
-    [Tags]    002    positivo    usuarios
+Cenário POST-USUARIOS-02: Não cadastrar usuário com email existente
+    [Tags]    002    usuarios
     ${APIURL}    Get Url Api
     Create Session     serverest    ${APIURL}
     
