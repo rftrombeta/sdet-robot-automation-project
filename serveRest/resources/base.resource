@@ -15,4 +15,10 @@ Library    sdet_python_automation_core.url
 Library    sdet_python_automation_core.utils
 
 # --- Resource Files --- #
-Resource    ../resources/actions/actions_serverest_login.resource
+## Actions
+Resource    ../resources/actions/actions_login.resource
+Resource    ../resources/actions/actions_usuarios.resource
+
+## Assertions
+Resource    ../resources/assertions/assertions_login.resource
+Resource    ../resources/assertions/assertions_usuarios.resource
