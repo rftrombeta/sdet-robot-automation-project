@@ -8,5 +8,9 @@ Valida cadastro de usuario
     [Documentation]
     ...    Retorna os dados de um usuário comum cadastrado no ServeRest
 
-    Dictionary Should Contain Key    ${response.json()}    _id
-    Should Be Equal As Strings    ${response.json()}[message]    Cadastro realizado com sucesso
+    IF    '${response.status_code}' == '201'
+        Dictionary Should Contain Key    ${response.json()}    _id
+        Should Be Equal As Strings    ${response.json()}[message]    Cadastro realizado com sucesso
+    ELSE IF    '${response.status_code}' == '400'
+        Should Be Equal As Strings    ${response.json()}[message]    Este email já está sendo usado
+    END

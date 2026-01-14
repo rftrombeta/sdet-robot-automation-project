@@ -18,7 +18,7 @@ Criar usuario comum
 
     Valida cadastro de usuario    ${response}
 
-    RETURN    ${payload_usuario}
+    RETURN    ${payload_usuario}    ${response}
 
 Criar usuario administrador
     [Documentation]
@@ -37,4 +37,20 @@ Criar usuario administrador
 
     Valida cadastro de usuario    ${response}
 
-    RETURN    ${response}
+    RETURN    ${payload_usuario}    ${response}
+
+Criar usuario duplicado
+    [Arguments]    ${payload_usuario}
+    [Documentation]
+    ...    Retorna os dados de um usuário comum cadastrado no ServeRest
+    ${APIURL}    Get Url Api
+    Create Session     postUsuario    ${APIURL}
+
+    ${response}    POST On Session    postUsuario
+    ...    /usuarios
+    ...    json=${payload_usuario}
+    ...    expected_status=400
+
+    Valida cadastro de usuario    ${response}
+
+    RETURN    ${payload_usuario}    ${response}
