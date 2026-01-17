@@ -12,7 +12,9 @@ Cenário POST-LOGIN-01: Login com sucesso
 
     ${RESPONSE}    Logar usuario com sucesso    ${USUARIO}[email]    ${USUARIO}[password]
 
-    ${TOKEN}    Valida login de usuario com sucesso    ${RESPONSE}
+    Valida login de usuario com sucesso    ${RESPONSE}
+
+    ${TOKEN}    Set Variable    ${RESPONSE.json()}[authorization]
 
 Cenário POST-LOGIN-02: Login com senha incorreta
     [Tags]    002    login

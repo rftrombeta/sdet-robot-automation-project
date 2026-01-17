@@ -13,7 +13,7 @@ Cenário POST-USUARIOS-01: Cadastrar novo usuário com sucesso
     
     Log To Console    Usuário criado com ID: ${RESPONSE_CADASTRO.json()}[_id]
 
-Cenário POST-USUARIOS-02: Cadastrar novo usuário com sucesso
+Cenário POST-USUARIOS-02: Cadastrar novo usuário administrador com sucesso
     [Tags]    002    usuarios
     
     ${USUARIO}    ${RESPONSE_CADASTRO}    Criar usuario administrador
@@ -29,6 +29,6 @@ Cenário POST-USUARIOS-03: Não cadastrar usuário com email existente
 
     Valida cadastro de usuario    ${RESPONSE_CADASTRO}
 
-    ${USUARIO}    ${RESPONSE_CADASTRO}    Criar usuario duplicado    ${USUARIO}
+    ${RESPONSE_CADASTRO_DUPLICADO}    Criar usuario duplicado    ${USUARIO}
 
-    Valida cadastro de usuario    ${RESPONSE_CADASTRO}
+    Valida cadastro de usuario    ${RESPONSE_CADASTRO_DUPLICADO}

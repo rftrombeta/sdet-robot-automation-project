@@ -13,6 +13,7 @@ Library    robot.libraries.String
 Library    sdet_python_automation_core.models
 Library    sdet_python_automation_core.url
 Library    sdet_python_automation_core.utils
+Library    sdet_python_automation_core.generators
 
 # --- Resource Files --- #
 ## Actions
