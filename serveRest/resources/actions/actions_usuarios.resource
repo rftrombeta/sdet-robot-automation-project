@@ -5,7 +5,14 @@ Resource         ../base.resource
 *** Keywords ***
 Criar usuario comum
     [Documentation]
-    ...    Retorna os dados de um usuário comum cadastrado no ServeRest
+    ...    Cria um usuário comum no ServeRest e retorna os dados do usuário criado.
+    ...
+    ...    *Retorno:*
+    ...    - Retorna o objeto de resposta completo (Response Object).
+    ...
+    ...    *Exemplo:*
+    ...    - ${response} ____ Criar usuario comum
+
     ${APIURL}    Get Url Api
     Create Session     postUsuario    ${APIURL}
 
@@ -16,13 +23,17 @@ Criar usuario comum
     ...    json=${payload_usuario}
     ...    expected_status=201
 
-    Valida cadastro de usuario    ${response}
-
     RETURN    ${payload_usuario}    ${response}
 
 Criar usuario administrador
     [Documentation]
-    ...    Retorna os dados de um usuário administrador cadastrado no ServeRest
+    ...    Cria um usuário administrador no ServeRest e retorna os dados do usuário criado.
+    ...
+    ...    *Retorno:*
+    ...    - Retorna o objeto de resposta completo (Response Object).
+    ...
+    ...    *Exemplo:*
+    ...    - ${response} ____ Criar usuario administrador
 
     ${APIURL}    Get Url Api
     Create Session     postUsuario    ${APIURL}
@@ -35,14 +46,12 @@ Criar usuario administrador
     ...    json=${payload_usuario}
     ...    expected_status=201
 
-    Valida cadastro de usuario    ${response}
-
     RETURN    ${payload_usuario}    ${response}
 
 Criar usuario duplicado
     [Arguments]    ${payload_usuario}
     [Documentation]
-    ...    Retorna os dados de um usuário comum cadastrado no ServeRest
+    ...    Tenta criar um usuário duplicado no ServeRest e verifica o erro de duplicação
     ${APIURL}    Get Url Api
     Create Session     postUsuario    ${APIURL}
 
@@ -50,7 +59,5 @@ Criar usuario duplicado
     ...    /usuarios
     ...    json=${payload_usuario}
     ...    expected_status=400
-
-    Valida cadastro de usuario    ${response}
 
     RETURN    ${payload_usuario}    ${response}

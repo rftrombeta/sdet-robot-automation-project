@@ -10,7 +10,9 @@ Cenário POST-LOGIN-01: Login com sucesso
     
     ${USUARIO}    ${RESPONSE_CADASTRO}    Criar usuario comum
 
-    ${TOKEN}    Logar usuario com sucesso    ${USUARIO}[email]    ${USUARIO}[password]
+    ${RESPONSE}    Logar usuario com sucesso    ${USUARIO}[email]    ${USUARIO}[password]
+
+    ${TOKEN}    Valida login de usuario com sucesso    ${RESPONSE}
 
 Cenário POST-LOGIN-02: Login com senha incorreta
     [Tags]    002    login
@@ -24,4 +26,6 @@ Cenário POST-LOGIN-03: Login com email incorreto
     
     ${USUARIO}    ${RESPONSE_CADASTRO}    Criar usuario comum
 
-    Logar usuario com senha ou email incorretos    email_errado@teste.com    ${USUARIO}[password]
+    ${RESPONSE}    Logar usuario com senha ou email incorretos    email_errado@teste.com    ${USUARIO}[password]
+
+    Valida login de usuario com senha ou email incorretos    ${RESPONSE}
