@@ -1,2 +1,4 @@
 robotframework
-git+https://github.com/rftrombeta/sdet-python-automation-core.git@main
+robotframework-requests
+# Referência explícita ao nome do pacote e origem
+sdet-python-automation-core @ git+https://github.com/rftrombeta/sdet-python-automation-core.git@main
