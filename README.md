@@ -1,158 +1,122 @@
-# 🤖 SDET Robot Automation Project
+# SDET Robot Automation Project 🤖
 
-Projeto de automação de testes utilizando **Robot Framework**, consumindo um **framework core versionado via pip**, desenvolvido para demonstrar práticas reais de **SDET / QA Automation Engineering**.
+Este repositório contém a suíte de automação de testes para a API [ServeRest](https://serverest.dev/), utilizando o **Robot Framework**. O diferencial deste projeto é a sua arquitetura desacoplada, onde a inteligência de dados é consumida de uma biblioteca core externa.
 
----
+## 🏗️ Arquitetura do Projeto
 
-## 🎯 Objetivo
+Diferente de abordagens monolíticas, este projeto atua como um **cliente**, consumindo recursos de infraestrutura (Models e Helpers) do repositório [sdet-python-automation-core](https://github.com/rftrombeta/sdet-python-automation-core).
 
-Este projeto tem como objetivo demonstrar:
+### Fluxo de Integração
+O Robot Framework gerencia a orquestração dos testes e as requisições HTTP, enquanto o Core fornece a garantia de contratos e geração de massa de dados dinâmicas.
 
-* Uso de **Robot Framework desacoplado** da implementação técnica
-* Consumo de um **framework core reutilizável** via `pip`
-* Arquitetura limpa e escalável para automação de APIs
-* Boas práticas de versionamento e integração entre repositórios
+```mermaid
+graph LR
+    subgraph "Infraestrutura (Python Core)"
+        A[Models / Pydantic]
+        B[Faker Helpers]
+    end
 
-O framework core utilizado neste projeto está disponível em:
+    subgraph "Execução (Robot Project)"
+        C[Test Suites .robot]
+        D[Business Keywords]
+        E[RequestsLibrary]
+    end
 
-👉 **sdet-python-automation-core**
-[https://github.com/rftrombeta/sdet-python-automation-core](https://github.com/rftrombeta/sdet-python-automation-core)
-
----
-
-## 🏗 Arquitetura da Solução de Automação
-
-![Arquitetura da Automação](docs/architecture-diagram.png)
-
-Este projeto representa a **camada de testes**, responsável apenas por:
-- Orquestrar cenários
-- Definir comportamento de testes
-- Consumir o Automation Core via pip
-
-### Visão Geral
-
-A arquitetura segue princípios de:
-- Separação de responsabilidades
-- Reutilização
-- Manutenibilidade
-- Escalabilidade
-
-### Fluxo de execução
-
-1. Os testes são escritos em Robot Framework
-2. As keywords Python são expostas pela BaseLibrary
-3. A BaseLibrary delega chamadas ao Automation Core
-4. O Core executa a lógica técnica (HTTP, validações, contratos)
-5. O resultado é retornado de forma padronizada ao teste
-
----
-
-## 🧱 Arquitetura
-
-```text
-sdet-robot-automation-project
-│
-├── tests/
-│   └── api/
-│       └── example_api.robot
-│
-├── pyproject.toml
-├── README.md
-└── .venv/
+    C --> D
+    D --> E
+    D -.->|Usa| A
+    D -.->|Usa| B
+    E -->|API Call| F((ServeRest))
 ```
 
-### 🔗 Relação entre os projetos
+## 📁 Estrutura do Projeto
 
-```text
-Robot Framework Tests
-        │
-        ▼
-SDET Python Automation Core (via pip)
-        │
-        ▼
-HttpClient • Context • Libraries • Keywords
+```
+sdet-robot-automation-project/
+├── configs/
+│   └── settings.yaml          # Configurações do projeto
+├── docs/                      # Documentação adicional
+├── results/                   # Relatórios de execução (gerados)
+│   ├── log.html
+│   ├── output.xml
+│   └── report.html
+├── serveRest/
+│   ├── resources/
+│   │   ├── base.resource      # Recursos base
+│   │   ├── actions/           # Ações específicas (login, usuários)
+│   │   └── assertions/        # Asserções para validações
+│   └── tests/
+│       └── api/               # Testes da API
+│           ├── login/
+│           ├── produtos/
+│           └── usuarios/
+├── requirements.txt           # Dependências Python
+├── README.md                  # Este arquivo
+└── report.html, log.html, output.xml  # Relatórios na raiz (gerados)
 ```
 
-O projeto Robot **não contém lógica técnica de HTTP**, apenas consome keywords expostas pelo core.
+## 🛠️ Tecnologias Utilizadas
 
----
+- **Robot Framework**: Motor de execução de testes.
+- **RequestsLibrary**: Gerenciamento de requisições HTTP/REST.
+- **Python 3.9+**: Base tecnológica do ecossistema.
+- **sdet-python-automation-core**: Dependência externa para modelos de dados e utilitários.
 
-## 📦 Dependências
+## 📋 Pré-requisitos
 
-Gerenciadas via **pyproject.toml**:
+- Python 3.9 ou superior instalado.
+- Git para clonar repositórios.
+- Acesso à internet para instalar dependências.
 
-```toml
-[project]
-dependencies = [
-  "robotframework>=6.0",
-  "sdet-python-automation-core @ git+https://github.com/rftrombeta/sdet-python-automation-core.git@v0.1.0"
-]
-```
+## 🚀 Instalação e Configuração
 
----
+1. **Clonar o Repositório**
+   ```bash
+   git clone https://github.com/rftrombeta/sdet-robot-automation-project.git
+   cd sdet-robot-automation-project
+   ```
 
-## 🚀 Instalação
+2. **Configurar Ambiente Virtual (venv)**
+   É altamente recomendado o uso de um ambiente isolado:
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
 
-### 1️⃣ Criar ambiente virtual
+   # Linux/Mac
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Instalar Dependências**
+   O projeto instalará automaticamente o Core diretamente do GitHub conforme definido no `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 🧪 Executando os Testes
+
+Você pode rodar todos os testes da pasta `tests` ou especificar uma suíte:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
+# Rodar todos os testes e salvar resultados na pasta 'results'
+robot -d results tests/
+
+# Rodar testes filtrando por Tags (ex: smoke)
+robot -d results -i smoke tests/
+
+# Rodar uma suíte específica
+robot -d results tests/api/login/postLogin.robot
 ```
 
-### 2️⃣ Instalar dependências
+## 📊 Relatórios e Logs
 
-```bash
-pip install -e .
-```
+Após a execução, o Robot Framework gera relatórios detalhados em HTML na pasta `/results`:
 
----
+- **report.html**: Visão executiva dos testes.
+- **log.html**: Detalhamento técnico de cada step e requisição.
+- **output.xml**: Dados brutos para integração com outras ferramentas.
 
-## ▶️ Execução dos testes
+## 👨‍💻 Autor
 
-```bash
-robot tests/api/example_api.robot
-```
-
-### ✅ Exemplo de teste
-
-```robot
-*** Settings ***
-Library    sdet_python_automation_core.libraries.base_library.BaseLibrary
-
-*** Test Cases ***
-GET Example Using Core Framework
-    Create HTTP Client    https://jsonplaceholder.typicode.com
-    GET    /posts/1
-    Status Should Be    200
-```
-
----
-
-## 🧠 Conceitos aplicados
-
-* SDET Architecture
-* Core framework reutilizável
-* Versionamento semântico
-* Integração via pip (GitHub)
-* Separação entre testes e implementação
-
----
-
-## 👤 Autor
-
-**Rodrigo Trombeta**
-QA SDET • Automação • IA
-
-* LinkedIn: [https://www.linkedin.com/in/rodrigo-trombeta-21b89252](https://www.linkedin.com/in/rodrigo-trombeta-21b89252)
-* GitHub: [https://github.com/rftrombeta](https://github.com/rftrombeta)
-
----
-
-## 📌 Próximos passos
-
-* Expansão de testes API
-* Integração com múltiplos ambientes
-* Autenticação (Bearer / OAuth)
-* Integração com CI/CD
+Rodrigo Trombeta - [LinkedIn](https://linkedin.com/in/rodrigotrombeta) | [Portfólio](https://rftrombeta.github.io/)
