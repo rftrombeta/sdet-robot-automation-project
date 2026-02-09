@@ -94,28 +94,39 @@ sdet-robot-automation-project/
    pip install -r requirements.txt
    ```
 
+   Para forçar a reinstalação de todas as rependências:
+   ```bash
+   pip install --force-reinstall -r requirements.txt
+   ```
+
 ## 🧪 Executando os Testes
 
 Você pode rodar todos os testes da pasta `tests` ou especificar uma suíte:
 
 ```bash
 # Rodar todos os testes e salvar resultados na pasta 'results'
-robot -d results tests/
+robot -d logs tests/
 
 # Rodar testes filtrando por Tags (ex: smoke)
-robot -d results -i smoke tests/
+robot -d logs -i smoke tests/
 
 # Rodar uma suíte específica
-robot -d results tests/api/login/postLogin.robot
+robot -d logs tests/api/login/postLogin.robot
 ```
 
 ## 📊 Relatórios e Logs
 
-Após a execução, o Robot Framework gera relatórios detalhados em HTML na pasta `/results`:
+Após a execução, o Robot Framework gera relatórios detalhados em HTML na pasta `/logs`:
 
 - **report.html**: Visão executiva dos testes.
 - **log.html**: Detalhamento técnico de cada step e requisição.
 - **output.xml**: Dados brutos para integração com outras ferramentas.
+
+## Recursos Úteis
+
+- [Robot Framework Documentation](https://robotframework.org/)
+- [ServeRest](https://serverest.dev/?lang=pt-BR)
+- [Documentação de Testes por Suíte](TESTES.md)
 
 ## 👨‍💻 Autor
 

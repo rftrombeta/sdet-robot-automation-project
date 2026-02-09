@@ -5,7 +5,6 @@ Documentation    Arquivo que implementa a estrutura inicial do projeto de teste
 Library    RequestsLibrary
 Library    Collections
 Library    OperatingSystem
-Library    JSONLibrary
 Library    robot.libraries.DateTime
 Library    robot.libraries.String
 
